@@ -23,6 +23,7 @@
         coordinateSytemRender();
 
         EquationRenderer();
+        Console.ReadKey();
 
         axisNumbersRenderer();
         Thread.Sleep(5000);
@@ -69,11 +70,11 @@
         // This is practicaly the one that does all the math, the i basically just tells it to do this math for each x value from one end of the screen to the other
         for(int i = 0; i < sharedVariables.xLength; i++)
         {
-            double xAdjusted = (i - sharedVariables.xOrego) / sharedVariables.scaleRatio ;
+            double xAdjusted = (i - sharedVariables.xOrego) / sharedVariables.scaleRatio;
 
-            double math = Math.Sin(xAdjusted);
+            double math = Math.Sin(xAdjusted + Math.PI);
 
-            double result = sharedVariables.scaleRatio * math;
+            double result = math * sharedVariables.scaleRatio;
 
             Console.SetCursorPosition(i, sharedVariables.yOrego + Convert.ToInt32(result));
 
@@ -102,23 +103,33 @@
 
         double xLengthPositive = (sharedVariables.xLength - sharedVariables.xOrego);
         double yLengthPositive = (sharedVariables.yLength - sharedVariables.yOrego);
-        double xLengthAdjustedPositive = (sharedVariables.xLength - sharedVariables.xOrego) / sharedVariables.scaleRatio;
-        double yLengthAdjustedPositive = (sharedVariables.yLength - sharedVariables.yOrego) / sharedVariables.scaleRatio;
-        double xLengthAdjustedNegative = (sharedVariables.xLength - xLengthPositive) / sharedVariables.scaleRatio;
-        double yLengthAdjustedNegative = (sharedVariables.yLength - yLengthPositive) / sharedVariables.scaleRatio;
+        double xLengthAdjustedPositive = (sharedVariables.xLength - sharedVariables.xOrego) / (sharedVariables.scaleRatio * 2);
+        double yLengthAdjustedPositive = (sharedVariables.yLength - sharedVariables.yOrego) / sharedVariables.scaleRatio ;
+        double xLengthAdjustedNegative = (xLengthPositive - sharedVariables.xLength) / (sharedVariables.scaleRatio * 2);
+        double yLengthAdjustedNegative = (yLengthPositive - sharedVariables.yLength) / sharedVariables.scaleRatio;
 
         for(int i = 0; i < xLengthAdjustedPositive; i++)
         {
-            Console.SetCursorPosition(Convert.ToInt32((i * 8) + sharedVariables.xOrego), sharedVariables.yOrego);
-            Console.Write(i);
+            Console.SetCursorPosition(Convert.ToInt32((i * (sharedVariables.scaleRatio * 2)) + sharedVariables.xOrego), sharedVariables.yOrego);
+            Console.Write(Math.Abs(i));
         }
 
-        Console.ReadKey();
-
-        for(int i = 0; i < sharedVariables.yLength; i++)
+        for(int i = 0; i < yLengthAdjustedPositive; i++)
         {
-            Console.SetCursorPosition(sharedVariables.xPosCoordI, i);
-            Console.Write("|");
+            Console.SetCursorPosition(sharedVariables.xOrego, Convert.ToInt32((i * sharedVariables.scaleRatio) + sharedVariables.yOrego));
+            Console.Write(Math.Abs(i));
+        }
+
+        for(int i = 0; i > xLengthAdjustedNegative; i--)
+        {
+            Console.SetCursorPosition(Convert.ToInt32((i * (sharedVariables.scaleRatio * 2)) + sharedVariables.xOrego), sharedVariables.yOrego);
+            Console.Write(Math.Abs(i));
+        }
+
+        for(int i = 0; i > yLengthAdjustedNegative; i--)
+        {
+            Console.SetCursorPosition(sharedVariables.xOrego, Convert.ToInt32((i * sharedVariables.scaleRatio) + sharedVariables.yOrego));
+            Console.Write(Math.Abs(i));
         }
     }
 }
