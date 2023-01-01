@@ -1,0 +1,15 @@
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\bin\Debug\net7.0\Graphing-Calculator.exe
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\bin\Debug\net7.0\Graphing-Calculator.deps.json
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\bin\Debug\net7.0\Graphing-Calculator.runtimeconfig.json
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\bin\Debug\net7.0\Graphing-Calculator.dll
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\bin\Debug\net7.0\Graphing-Calculator.pdb
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.csproj.AssemblyReference.cache
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.AssemblyInfoInputs.cache
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.AssemblyInfo.cs
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.csproj.CoreCompileInputs.cache
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.dll
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\refint\Graphing-Calculator.dll
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.pdb
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\Graphing-Calculator.genruntimeconfig.cache
+C:\Users\ivano\Documents\CSharp projects\Graphing-Calculator\obj\Debug\net7.0\ref\Graphing-Calculator.dll
