@@ -26,9 +26,9 @@ Once you are ready, press any button to continue");
 
         Console.ReadKey();
 
-        renderers.resetScreenPos();
+        Renderers.resetScreenPos();
         sharedVariables.scaleRatio = 4;
-        renderers.updateOrego(ConsoleKey.Enter);
+        Renderers.updateOrego(ConsoleKey.Enter);
 
         bool keepLoop = true;
 
@@ -44,12 +44,12 @@ Once you are ready, press any button to continue");
                 case ConsoleKey.D:
                 case ConsoleKey.Enter:
                     {
-                        renderers.updateOrego(movementDirection);
+                        Renderers.updateOrego(movementDirection);
                     }
                     break;
                 case ConsoleKey.R:
-                renderers.resetScreenPos();
-                renderers.updateOrego(ConsoleKey.Enter);
+                Renderers.resetScreenPos();
+                Renderers.updateOrego(ConsoleKey.Enter);
                 break;
                 case ConsoleKey.I:
                 string currentFormula = Console.ReadLine();

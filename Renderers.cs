@@ -1,4 +1,4 @@
-public class renderers
+public class Renderers
 {
     public static void coordinateSytemRender()
     {
