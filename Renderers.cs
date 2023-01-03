@@ -148,7 +148,7 @@ public class Renderers
 
         axisNumbersRenderer();
 
-        inputFieldRenderer();
+        //inputFieldRenderer();
     }
     public static void resetScreenPos()
     {

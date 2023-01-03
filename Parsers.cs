@@ -9,14 +9,16 @@ public class Parsers
         formula = "f(x) = sin(x + 3) + 2 * -0.4 - (3 ^ 2)";
 
         formula = formula.Replace(" ", "");
-
+        
         string[] nameSplit = formula.Split('=');
 
         Program.sharedVariables.Formulas.Add(nameSplit[0], nameSplit[1]);
 
-        char[] formulaArray = new char[nameSplit[1].Length];
+        string formulaCut = nameSplit[1];
 
-        for (int i = 0; i < formula.Length; i++)
+        char[] formulaArray = new char[formulaCut.Length];
+
+        for (int i = 0; i < formulaCut.Length; i++)
         {
             formulaArray[i] = formula[i];
         }
@@ -26,32 +28,73 @@ public class Parsers
 
         int segmentNum = 0;
 
-        int neededLength = formulaArray.Count(s => s == '(');
-        string[] segmentedFormula = new string[neededLength];
+        // RAM
+        char third = ' ';
+        char second = ' ';
+        char first = ' ';
 
-        char[] toAdd = new char[formulaArray.Length];
+        Dictionary<string, double> Formulas = new Dictionary<string, double>();
+
+        double numToAdd;
+
+        string lastOperation = "=";
 
         for (int i = 0; i < formulaArray.Length; i++)
         {
-            switch (formulaArray[i])
+            char test = formulaArray[i];
+
+            switch (test)
             {
+                case '+':
+                
+                Formulas.Add(lastOperation, numToAdd);
+
+                lastOperation = "+";
+                segmentNum++;
+                break;
+                case '-':
+
+                break;
+                case '*':
+
+                break;
+                case '/':
+
+                break;
                 case '(':
-                segmentedFormula[segmentNum] = Convert.ToString(toAdd);
-                toAdd[segmentNum] = formulaArray[i];
+
                 break;
                 case ')':
-                toAdd[segmentNum] = formulaArray[i];
-                segmentedFormula[segmentNum] = Convert.ToString(toAdd);
+
+                break;
+                case '^':
+
                 break;
                 default:
-                toAdd[segmentNum] = formulaArray[i];
+                numToAdd 
                 break;
             }
-        }
 
-        for (int i = 0; i < segmentedFormula.Length; i++)
-        {
-            Console.WriteLine(segmentedFormula[i]);
+            third = second;
+            second = first;
+            first = test;
+
+            if (third == 'S' && second == 'I' && first == 'N')
+            {
+                // Sin segment found
+            }
+            else if (third == 'T' && second == 'A' && first == 'N')
+            {
+                // Tan segment found
+            }
+            else if (third == 'C' && second == 'O' && first == 'S')
+            {
+                // Cos segment found
+            }
+            else
+            {
+                // Do nothing
+            }
         }
 
         Console.ReadKey();

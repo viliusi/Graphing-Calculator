@@ -8,19 +8,19 @@
     "net7.0": []
   },
   "packageFolders": {
-    "C:\\Users\\ivano\\.nuget\\packages\\": {}
+    "C:\\Users\\Vilius\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\ivano\\Documents\\CSharp projects\\Graphing-Calculator\\Graphing-Calculator.csproj",
+      "projectUniqueName": "C:\\Users\\Vilius\\Documents\\Projects\\Graphing-Calculator\\Graphing-Calculator.csproj",
       "projectName": "Graphing-Calculator",
-      "projectPath": "C:\\Users\\ivano\\Documents\\CSharp projects\\Graphing-Calculator\\Graphing-Calculator.csproj",
-      "packagesPath": "C:\\Users\\ivano\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\ivano\\Documents\\CSharp projects\\Graphing-Calculator\\obj\\",
+      "projectPath": "C:\\Users\\Vilius\\Documents\\Projects\\Graphing-Calculator\\Graphing-Calculator.csproj",
+      "packagesPath": "C:\\Users\\Vilius\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Vilius\\Documents\\Projects\\Graphing-Calculator\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\ivano\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\Vilius\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
