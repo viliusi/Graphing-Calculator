@@ -6,7 +6,7 @@ public class Parsers
     }
     public static void inputHandler(string formula)
     {
-        formula = "f(x) = sin(x + 3) + 2 * -0.4 - (3 ^ 2)";
+        formula = "f(x) = 2 * ( -0.4 - 3 ) ^ 2 + sin(x + 3)";
 
         formula = formula.Replace(" ", "");
         
@@ -26,16 +26,15 @@ public class Parsers
         int[] formulaIndexStartParanthesis = new int[formulaArray.Count(s => s == '(')];
         int[] formulaIndexEndParanthesis = new int[formulaArray.Count(s => s == ')')];
 
-        int segmentNum = 0;
-
-        // RAM
-        char third = ' ';
-        char second = ' ';
-        char first = ' ';
-
         Dictionary<string, double> Formulas = new Dictionary<string, double>();
 
         double numToAdd;
+
+        int segmentNum = 0;
+
+        int numAdd = 0;
+
+        char[] numToAddArray = new char[9];
 
         string lastOperation = "=";
 
@@ -45,64 +44,40 @@ public class Parsers
 
             switch (test)
             {
-                case '+':
-                
+                case '+': // +
+                numToAdd = Convert.ToDouble(numToAddArray);
                 Formulas.Add(lastOperation, numToAdd);
-
                 lastOperation = "+";
                 segmentNum++;
                 break;
-                case '-':
+                case '-': // -
 
                 break;
-                case '*':
+                case '*': // *
 
                 break;
-                case '/':
+                case '/': // /
 
                 break;
-                case '(':
+                case '(': // (
 
                 break;
-                case ')':
+                case ')': // )
 
                 break;
                 case '^':
-
+                // ^=
+                break;
+                case 's': // Sin
+                i = i + 3;
+                lastOperation = "Sin(";
                 break;
                 default:
-                numToAdd 
+                numToAddArray[numAdd] = test;
                 break;
-            }
-
-            third = second;
-            second = first;
-            first = test;
-
-            if (third == 'S' && second == 'I' && first == 'N')
-            {
-                // Sin segment found
-            }
-            else if (third == 'T' && second == 'A' && first == 'N')
-            {
-                // Tan segment found
-            }
-            else if (third == 'C' && second == 'O' && first == 'S')
-            {
-                // Cos segment found
-            }
-            else
-            {
-                // Do nothing
             }
         }
 
         Console.ReadKey();
-
-        // int[] formulaIndexPlus = new int[formula.Count(p => p == '+')];
-        // int[] formulaIndexMinus = new int[formula.Count(m => m == '-')];
-        // int[] formulaIndexMultiply = new int[formula.Count(m => m == '*')];
-        // int[] formulaIndexDivide = new int[formula.Count(d => d == '/')];
-        // int[] formulaIndexPower = new int[formula.Count(c => c == '^')];
     }
 }
