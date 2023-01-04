@@ -20,7 +20,7 @@ public class Parsers
 
         for (int i = 0; i < formulaCut.Length; i++)
         {
-            formulaArray[i] = formula[i];
+            formulaArray[i] = formulaCut[i];
         }
 
         int[] formulaIndexStartParanthesis = new int[formulaArray.Count(s => s == '(')];
@@ -49,6 +49,7 @@ public class Parsers
                     Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "+";
                     segmentNum++;
+                    numToAdd = 0;
                     break;
                 case '-': // -
 
@@ -74,76 +75,59 @@ public class Parsers
                     break;
                 default:
                     numToAddArray[numAdd] = test;
+                    numAdd++;
                     break;
             }
         }
     }
     public static double makeDouble(char[] numberSegment)
     {
-        int[] commaLocationArray = new int[0];
+        int actualLength = 0;
 
         for (int i = 0; i < numberSegment.Length; i++)
         {
             char test = numberSegment[i];
 
-            if (test == '.')
+            if (test != '\0')
             {
-                commaLocationArray[0] = i;
+                actualLength++;
             }
         }
 
-        char[] beforeComma = new char[numberSegment.Length];
-        char[] afterComma = new char[numberSegment.Length];
+        int commaLocation = Array.IndexOf(numberSegment, '.');
 
         int beforeCommaLoc = 0;
         int afterCommaLoc = 0;
 
-        for (int i = 0; i <= numberSegment.Length; i++)
+        int digitsBeforeComma = commaLocation;
+        int digitsAfterComma = actualLength - commaLocation;
+
+        char[] beforeComma = new char[digitsBeforeComma];
+        char[] afterComma = new char[digitsAfterComma];
+
+        for (int i = 0; i <= actualLength; i++)
         {
             int comLoc = commaLocation;
 
-            if (i < commaLocation)
+            char toAdd = numberSegment[i];
+
+            if (i < commaLocation && toAdd != '.')
             {
-                beforeComma[beforeCommaLoc] = numberSegment[i];
+                beforeComma[beforeCommaLoc] = toAdd;
                 beforeCommaLoc++;
             }
-            else if (i > commaLocation)
+            else if (i > commaLocation && toAdd != '.')
             {
-                afterComma[afterCommaLoc] = numberSegment[i];
+                afterComma[afterCommaLoc] = toAdd;
                 afterCommaLoc++;
             }
         }
-
-        beforeCommaLoc = beforeComma.Length;
-        afterCommaLoc = afterComma.Length;
-
-        char[] beforeCommaShort = new char[beforeCommaLoc];
-        char[] afterCommaShort = new char[afterCommaLoc];
-
-        for (int i = 0; i < beforeCommaLoc; i++)
-        {
-            beforeCommaShort[i] = beforeComma[i];
-        }
-        for (int i = 0; i < afterCommaLoc; i++)
-        {
-            afterCommaShort[i] = afterComma[i];
-        }
-        
-        Console.WriteLine(beforeCommaLoc);
-
-        for (int i = 0; i < beforeCommaLoc; i++)
-        {
-            Console.Clear();
-            Console.WriteLine(beforeCommaShort[i]);
-            Thread.Sleep(500);
-        }
-
 
         // double numberFinal = int.Parse(string.Concat(beforeCommaShort)) + '.' + int.Parse(string.Concat(afterCommaShort));
 
         // concat
 
-        double numberFinal = 2;
+        double numberFinal = double.Parse(string.Concat(beforeComma + "." + afterComma));
 
         Console.WriteLine(numberFinal);
         Console.ReadKey();
