@@ -6,8 +6,6 @@ public class Parsers
     }
     public static void inputHandler(string formula)
     {
-        formula = "f(x) = 2.4 + ( -0.4 - 3 ) ^ 2 + sin( x + 3 )";
-
         formula = formula.Replace(" ", "");
 
         string[] nameSplit = formula.Split('=');
@@ -123,14 +121,16 @@ public class Parsers
             }
         }
 
+        int beforeCommaInt = int.Parse(beforeComma);
+        int afterCommaInt = int.Parse(afterComma);
+
+        string doubleString = new string(beforeCommaInt + "," + afterCommaInt);
+
         // double numberFinal = int.Parse(string.Concat(beforeCommaShort)) + '.' + int.Parse(string.Concat(afterCommaShort));
 
         // concat
 
-        double numberFinal = double.Parse(string.Concat(beforeComma + "." + afterComma));
-
-        Console.WriteLine(numberFinal);
-        Console.ReadKey();
+        double numberFinal = double.Parse(doubleString);
 
         return numberFinal;
     }
