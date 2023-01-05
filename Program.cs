@@ -11,7 +11,9 @@
         public static double scaleRatio;
         public static double lastResult;
         public static int inputFieldWidth;
-        public static Dictionary<string, string> Formulas = new Dictionary<string, string>();
+        public static Dictionary<string, Dictionary<string, double>> FormulasForRendering = new Dictionary<string, Dictionary<string, double>>();
+        public static List<string> allFormulaNames = new List<string>();
+        public static List<string> toRenderFormulaNames = new List<string>();
     }
     private static void Main(string[] args)
     {
@@ -26,9 +28,9 @@ Once you are ready, press any button to continue");
 
         Console.ReadKey();
 
-        Renderers.resetScreenPos();
+        resetScreenPos();
         sharedVariables.scaleRatio = 4;
-        Renderers.updateOrego(ConsoleKey.Enter);
+        updateOrego(ConsoleKey.Enter);
 
         bool keepLoop = true;
 
@@ -44,20 +46,106 @@ Once you are ready, press any button to continue");
                 case ConsoleKey.D:
                 case ConsoleKey.Enter:
                     {
-                        Renderers.updateOrego(movementDirection);
+                        updateOrego(movementDirection);
                     }
                     break;
                 case ConsoleKey.R:
-                Renderers.resetScreenPos();
-                Renderers.updateOrego(ConsoleKey.Enter);
-                break;
+                    resetScreenPos();
+                    updateOrego(ConsoleKey.Enter);
+                    break;
                 case ConsoleKey.I:
-                string currentFormula = Console.ReadLine();
-                Parsers.inputHandler(currentFormula);
-                break;
+                    string currentFormula = Console.ReadLine();
+                    Parsers.inputHandler(currentFormula);
+                    break;
+                case ConsoleKey.O:
+                    if (sharedVariables.scaleRatio >= 2)
+                    {
+                        sharedVariables.scaleRatio -= 1;
+                    }
+                    updateOrego(ConsoleKey.Enter);
+                    break;
+                case ConsoleKey.P:
+                    sharedVariables.scaleRatio += 1;
+                    updateOrego(ConsoleKey.Enter);
+                    break;
                 default:
                     break;
             }
         }
+    }
+    public static void updateOrego(System.ConsoleKey input)
+    {
+        switch (input)
+        {
+            case ConsoleKey.W:
+                Program.sharedVariables.yOregoDouble -= sharedVariables.scaleRatio;
+                break;
+            case ConsoleKey.A:
+                Program.sharedVariables.xOregoDouble += (sharedVariables.scaleRatio * 2);
+                break;
+            case ConsoleKey.S:
+                Program.sharedVariables.yOregoDouble += sharedVariables.scaleRatio;
+                break;
+            case ConsoleKey.D:
+                Program.sharedVariables.xOregoDouble -= (sharedVariables.scaleRatio * 2);
+                break;
+            default:
+                break;
+        }
+        Renderers.coordinateSytemRender();
+
+        EquationHandler();
+
+        Renderers.axisNumbersRenderer();
+
+        //inputFieldRenderer();
+    }
+    public static void resetScreenPos()
+    {
+        Program.sharedVariables.xOregoDouble = Console.WindowWidth * 0.3;
+        Program.sharedVariables.yOregoDouble = Console.WindowHeight * 0.5;
+    }
+    public static void EquationHandler()
+    {
+        int[] indexOfFormulas = new int[sharedVariables.toRenderFormulaNames.Count];
+
+        int index = 0;
+
+        for (int i = 0; i < sharedVariables.toRenderFormulaNames.Count; i++)
+        {
+            string toTest = sharedVariables.toRenderFormulaNames[i];
+
+            for (int b = 0; b < sharedVariables.FormulasForRendering.Count; b++)
+            {
+                string testingAgainst = sharedVariables.FormulasForRendering.ElementAt(b).Key;
+
+                if (toTest == testingAgainst)
+                {
+                    indexOfFormulas[index] = b;
+                    index++;
+                }
+            }
+        }
+
+        for (int i = 0; i < indexOfFormulas.Length; i++)
+        {
+            int formulaToSend = indexOfFormulas[i];
+
+            Dictionary<string, double> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
+
+            Renderers.EquationRenderer(safeTravelsFormula);
+        }
+    }
+    public static void AddToRender(string name)
+    {
+        sharedVariables.toRenderFormulaNames.Add(name);
+    }
+    public static void RemoveFromRender(string name)
+    {
+        sharedVariables.toRenderFormulaNames.Remove(name);
+    }
+    public static void AddEquationToLists(string name)
+    {
+        sharedVariables.allFormulaNames.Add(name);
     }
 }

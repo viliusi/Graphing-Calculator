@@ -30,7 +30,7 @@ public class Renderers
             }
         }
     }
-    public static void EquationRenderer()
+    public static void EquationRenderer(Dictionary<string, double> formula)
     {
         // Different color from axis
         Console.ForegroundColor = ConsoleColor.Blue;
@@ -41,9 +41,9 @@ public class Renderers
         // This is practicaly the one that does all the math, the i basically just tells it to do this math for each x value from one end of the screen to the other
         for (int i = 0; i < Program.sharedVariables.xLength; i++)
         {
-            double xAdjusted = (i - Program.sharedVariables.xOregoDouble) / (Program.sharedVariables.scaleRatio * 2);
+            double x = (i - Program.sharedVariables.xOregoDouble) / (Program.sharedVariables.scaleRatio * 2);
 
-            double math = Math.Sin(xAdjusted + Math.PI);
+            double math = Math.Sin(x + Math.PI);
 
             double result = math * Program.sharedVariables.scaleRatio;
 
@@ -80,6 +80,17 @@ public class Renderers
     {
         Console.ForegroundColor = ConsoleColor.White;
 
+        int skip;
+        
+        if (Program.sharedVariables.scaleRatio <= 2)
+        {
+            skip = 4;
+        }
+        else
+        {
+            skip = 1;
+        }
+
         double xLengthPositive = (Program.sharedVariables.xLength - Program.sharedVariables.xOrego);
         double yLengthPositive = (Program.sharedVariables.yLength - Program.sharedVariables.yOrego);
         double xLengthAdjustedPositive = (Program.sharedVariables.xLength - Program.sharedVariables.xOrego) / (Program.sharedVariables.scaleRatio * 2);
@@ -87,7 +98,7 @@ public class Renderers
         double xLengthAdjustedNegative = (xLengthPositive - Program.sharedVariables.xLength) / (Program.sharedVariables.scaleRatio * 2);
         double yLengthAdjustedNegative = (yLengthPositive - Program.sharedVariables.yLength) / Program.sharedVariables.scaleRatio;
 
-        for (int i = 0; i < xLengthAdjustedPositive; i++)
+        for (int i = 0; i < xLengthAdjustedPositive; i += skip)
         {
             if (0 < Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) && Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) < Program.sharedVariables.xLength && 0 < Program.sharedVariables.yOrego && Program.sharedVariables.yOrego < Program.sharedVariables.yLength)
             {
@@ -96,7 +107,7 @@ public class Renderers
             }
         }
 
-        for (int i = 0; i < yLengthAdjustedPositive; i++)
+        for (int i = 0; i < yLengthAdjustedPositive; i += skip)
         {
             if (0 < Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) && Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) < Program.sharedVariables.yLength && 0 < Program.sharedVariables.xOrego && Program.sharedVariables.xOrego < Program.sharedVariables.xLength)
             {
@@ -105,7 +116,7 @@ public class Renderers
             }
         }
 
-        for (int i = 0; i > xLengthAdjustedNegative; i--)
+        for (int i = 0; i > xLengthAdjustedNegative; i -= skip)
         {
             if (0 < Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) && Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) < Program.sharedVariables.xLength && 0 < Program.sharedVariables.yOrego && Program.sharedVariables.yOrego < Program.sharedVariables.yLength)
             {
@@ -114,7 +125,7 @@ public class Renderers
             }
         }
 
-        for (int i = 0; i > yLengthAdjustedNegative; i--)
+        for (int i = 0; i > yLengthAdjustedNegative; i -= skip)
         {
             if (0 < Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) && Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) < Program.sharedVariables.yLength && 0 < Program.sharedVariables.xOrego && Program.sharedVariables.xOrego < Program.sharedVariables.xLength)
             {
@@ -122,38 +133,6 @@ public class Renderers
                 Console.Write(Math.Abs(i));
             }
         }
-    }
-    public static void updateOrego(System.ConsoleKey input)
-    {
-        switch (input)
-        {
-            case ConsoleKey.W:
-                Program.sharedVariables.yOregoDouble--;
-                break;
-            case ConsoleKey.A:
-                Program.sharedVariables.xOregoDouble++;
-                break;
-            case ConsoleKey.S:
-                Program.sharedVariables.yOregoDouble++;
-                break;
-            case ConsoleKey.D:
-                Program.sharedVariables.xOregoDouble--;
-                break;
-            default:
-                break;
-        }
-        coordinateSytemRender();
-
-        EquationRenderer();
-
-        axisNumbersRenderer();
-
-        //inputFieldRenderer();
-    }
-    public static void resetScreenPos()
-    {
-        Program.sharedVariables.xOregoDouble = Console.WindowWidth * 0.3;
-        Program.sharedVariables.yOregoDouble = Console.WindowHeight * 0.5;
     }
     public static void inputFieldRenderer()
     {
