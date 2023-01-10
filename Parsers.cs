@@ -23,9 +23,7 @@ public class Parsers
             formulaArray[i] = formulaCut[i];
         }
 
-        Dictionary<string, double> Formulas = new Dictionary<string, double>();
-
-        double numToAdd;
+        Dictionary<string, char[]> Formulas = new Dictionary<string, char[]>();
 
         int segmentNum = 0;
 
@@ -48,87 +46,41 @@ public class Parsers
                     } 
                     else
                     {*/
-                        numToAdd = makeDouble(numToAddArray);
+                        
                     // }
-                    Formulas.Add(lastOperation, numToAdd);
+                    Formulas.Add(lastOperation, numToAddArray);
                     lastOperation = "+" + Convert.ToString(i);
                     segmentNum++;
-                    numToAdd = 0;
                     numAdd = 0;
                     break;
                 case '-': // -
-                    /* if (numToAddArray[0] == 'x')
-                    {
-                        numToAdd = 43.37;
-                    }
-                    else
-                    { */
-                        numToAdd = makeDouble(numToAddArray);
-                    // }
-                    Formulas.Add(lastOperation, numToAdd);
+                    Formulas.Add(lastOperation, numToAddArray);
                     lastOperation = "-" + Convert.ToString(i);
                     segmentNum++;
-                    numToAdd = 0;
                     numAdd = 0;
                     break;
                 case '*': // *
-                    /* if (numToAddArray[0] == 'x')
-                    {
-                        numToAdd = 43.37;
-                    }
-                    else
-                    { */
-                        numToAdd = makeDouble(numToAddArray);
-                    // }
-                    Formulas.Add(lastOperation, numToAdd);
+                    Formulas.Add(lastOperation, numToAddArray);
                     lastOperation = "*" + Convert.ToString(i);
                     segmentNum++;
-                    numToAdd = 0;
                     numAdd = 0;
                     break;
                 case '/': // /
-                    /* if (numToAddArray[0] == 'x')
-                    {
-                        numToAdd = 43.37;
-                    }
-                    else
-                    { */
-                        numToAdd = makeDouble(numToAddArray);
-                    // }
-                    Formulas.Add(lastOperation, numToAdd);
+                    Formulas.Add(lastOperation, numToAddArray);
                     lastOperation = "/" + Convert.ToString(i);
                     segmentNum++;
-                    numToAdd = 0;
                     numAdd = 0;
                     break;
                 case '(': // (
-                    /* if (numToAddArray[0] == 'x')
-                    {
-                        numToAdd = 43.37;
-                    }
-                    else
-                    { */
-                        numToAdd = makeDouble(numToAddArray);
-                    // }
-                    Formulas.Add(lastOperation, numToAdd);
+                    Formulas.Add(lastOperation, numToAddArray);
                     lastOperation = "(" + Convert.ToString(i);
                     segmentNum++;
-                    numToAdd = 0;
                     numAdd = 0;
                     break;
                 case ')': // )
-                    /* if (numToAddArray[0] == 'x')
-                    {
-                        numToAdd = 43.37;
-                    }
-                    else
-                    { */
-                        numToAdd = makeDouble(numToAddArray);
-                    // }
-                    Formulas.Add(lastOperation, numToAdd);
+                    Formulas.Add(lastOperation, numToAddArray);
                     lastOperation = ")" + Convert.ToString(i);
                     segmentNum++;
-                    numToAdd = 0;
                     numAdd = 0;
                     break;
                 case '^':

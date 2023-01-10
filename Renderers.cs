@@ -32,6 +32,15 @@ public class Renderers
     }
     public static void EquationRenderer(Dictionary<string, double> formula)
     {
+        // Convert input to math equation here:
+
+
+
+
+    
+    
+    
+    
         // Different color from axis
         Console.ForegroundColor = ConsoleColor.Blue;
 
@@ -78,19 +87,6 @@ public class Renderers
     }
     public static void axisNumbersRenderer()
     {
-        Console.ForegroundColor = ConsoleColor.White;
-
-        int skip;
-        
-        if (Program.sharedVariables.scaleRatio <= 2)
-        {
-            skip = 4;
-        }
-        else
-        {
-            skip = 1;
-        }
-
         double xLengthPositive = (Program.sharedVariables.xLength - Program.sharedVariables.xOrego);
         double yLengthPositive = (Program.sharedVariables.yLength - Program.sharedVariables.yOrego);
         double xLengthAdjustedPositive = (Program.sharedVariables.xLength - Program.sharedVariables.xOrego) / (Program.sharedVariables.scaleRatio * 2);
@@ -98,7 +94,7 @@ public class Renderers
         double xLengthAdjustedNegative = (xLengthPositive - Program.sharedVariables.xLength) / (Program.sharedVariables.scaleRatio * 2);
         double yLengthAdjustedNegative = (yLengthPositive - Program.sharedVariables.yLength) / Program.sharedVariables.scaleRatio;
 
-        for (int i = 0; i < xLengthAdjustedPositive; i += skip)
+        for (int i = 0; i < xLengthAdjustedPositive; i += Program.sharedVariables.numberSkip)
         {
             if (0 < Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) && Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) < Program.sharedVariables.xLength && 0 < Program.sharedVariables.yOrego && Program.sharedVariables.yOrego < Program.sharedVariables.yLength)
             {
@@ -107,7 +103,7 @@ public class Renderers
             }
         }
 
-        for (int i = 0; i < yLengthAdjustedPositive; i += skip)
+        for (int i = 0; i < yLengthAdjustedPositive; i += Program.sharedVariables.numberSkip)
         {
             if (0 < Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) && Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) < Program.sharedVariables.yLength && 0 < Program.sharedVariables.xOrego && Program.sharedVariables.xOrego < Program.sharedVariables.xLength)
             {
@@ -116,7 +112,7 @@ public class Renderers
             }
         }
 
-        for (int i = 0; i > xLengthAdjustedNegative; i -= skip)
+        for (int i = 0; i > xLengthAdjustedNegative; i -= Program.sharedVariables.numberSkip)
         {
             if (0 < Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) && Convert.ToInt32((i * (Program.sharedVariables.scaleRatio * 2)) + Program.sharedVariables.xOrego) < Program.sharedVariables.xLength && 0 < Program.sharedVariables.yOrego && Program.sharedVariables.yOrego < Program.sharedVariables.yLength)
             {
@@ -125,7 +121,7 @@ public class Renderers
             }
         }
 
-        for (int i = 0; i > yLengthAdjustedNegative; i -= skip)
+        for (int i = 0; i > yLengthAdjustedNegative; i -= Program.sharedVariables.numberSkip)
         {
             if (0 < Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) && Convert.ToInt32((i * Program.sharedVariables.scaleRatio) + Program.sharedVariables.yOrego) < Program.sharedVariables.yLength && 0 < Program.sharedVariables.xOrego && Program.sharedVariables.xOrego < Program.sharedVariables.xLength)
             {

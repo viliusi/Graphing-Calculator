@@ -14,11 +14,15 @@
         public static Dictionary<string, Dictionary<string, double>> FormulasForRendering = new Dictionary<string, Dictionary<string, double>>();
         public static List<string> allFormulaNames = new List<string>();
         public static List<string> toRenderFormulaNames = new List<string>();
+        public static int numberSkip;
+        public static int zoomFactor;
     }
     private static void Main(string[] args)
     {
         resetScreenPos();
-        sharedVariables.scaleRatio = 4;
+
+        ZoomHandler(ConsoleKey.Enter);
+
         updateOrego(ConsoleKey.Enter);
 
         bool keepLoop = true;
@@ -47,14 +51,11 @@
                     Parsers.inputHandler(currentFormula);
                     break;
                 case ConsoleKey.O:
-                    if (sharedVariables.scaleRatio >= 2)
-                    {
-                        sharedVariables.scaleRatio -= 1;
-                    }
+                    ZoomHandler(ConsoleKey.O);
                     updateOrego(ConsoleKey.Enter);
                     break;
                 case ConsoleKey.P:
-                    sharedVariables.scaleRatio += 1;
+                    ZoomHandler(ConsoleKey.P);
                     updateOrego(ConsoleKey.Enter);
                     break;
                 default:
@@ -136,5 +137,44 @@
     public static void AddEquationToLists(string name)
     {
         sharedVariables.allFormulaNames.Add(name);
+    }
+    public static void ZoomHandler(System.ConsoleKey input)
+    {
+        switch (input)
+        {
+            case ConsoleKey.O:
+            if (2 < sharedVariables.scaleRatio)
+            {
+                sharedVariables.scaleRatio -= sharedVariables.zoomFactor;
+            }
+            break;
+
+
+            case ConsoleKey.P:
+            if (12 > sharedVariables.scaleRatio)
+            {
+                sharedVariables.scaleRatio += sharedVariables.zoomFactor;
+            }
+            break;
+
+            case ConsoleKey.Enter:
+            sharedVariables.scaleRatio = 4;
+            sharedVariables.numberSkip = 1;
+            sharedVariables.zoomFactor = 1;
+            break;
+            default:
+            break;
+        }
+
+        if (sharedVariables.scaleRatio == 3)
+        {
+            sharedVariables.zoomFactor = 1;
+            sharedVariables.numberSkip = 5;
+        }
+        else if (sharedVariables.scaleRatio == 8)
+        {
+            sharedVariables.zoomFactor = 2;
+            sharedVariables.numberSkip = 1;
+        }
     }
 }
