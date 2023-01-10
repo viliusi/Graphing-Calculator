@@ -30,17 +30,23 @@ public class Renderers
             }
         }
     }
-    public static void EquationRenderer(Dictionary<string, double> formula)
+    public static void EquationRenderer(Dictionary<string, char[]> formula)
     {
         // Convert input to math equation here:
 
+        Console.Clear();
+
+        // foreach (KeyValuePair<string, double> kvp in formula)
+        // {
+        //     //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+        //     Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+        // }
 
 
 
-    
-    
-    
-    
+
+
+
         // Different color from axis
         Console.ForegroundColor = ConsoleColor.Blue;
 
@@ -151,6 +157,6 @@ public class Renderers
     }
     public static void errorRenderer()
     {
-        
+
     }
 }

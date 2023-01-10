@@ -11,11 +11,12 @@
         public static double scaleRatio;
         public static double lastResult;
         public static int inputFieldWidth;
-        public static Dictionary<string, Dictionary<string, double>> FormulasForRendering = new Dictionary<string, Dictionary<string, double>>();
+        public static Dictionary<string, char[]> FormulasForRendering = new Dictionary<string, char[]>();
         public static List<string> allFormulaNames = new List<string>();
         public static List<string> toRenderFormulaNames = new List<string>();
         public static int numberSkip;
         public static int zoomFactor;
+        public static int index = 0;
     }
     private static void Main(string[] args)
     {
@@ -48,7 +49,8 @@
                     break;
                 case ConsoleKey.I:
                     string currentFormula = Console.ReadLine();
-                    Parsers.inputHandler(currentFormula);
+                    // Find out how to make multiple constructors with one command, goodluck me
+                    // Equation formula[sharedVariables.index] = new Equation(currentFormula);
                     break;
                 case ConsoleKey.O:
                     ZoomHandler(ConsoleKey.O);
@@ -97,6 +99,7 @@
     }
     public static void EquationHandler()
     {
+        // Setting up an int array to setup where our formulas for rendering are situated
         int[] indexOfFormulas = new int[sharedVariables.toRenderFormulaNames.Count];
 
         int index = 0;
@@ -117,13 +120,14 @@
             }
         }
 
+        // using the indexes we got, we retrieve the formulas and set them away to the renderer
         for (int i = 0; i < indexOfFormulas.Length; i++)
         {
             int formulaToSend = indexOfFormulas[i];
 
-            Dictionary<string, double> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
+            // Dictionary<string, char[]> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
 
-            Renderers.EquationRenderer(safeTravelsFormula);
+            // Renderers.EquationRenderer(safeTravelsFormula);
         }
     }
     public static void AddToRender(string name)
@@ -133,10 +137,6 @@
     public static void RemoveFromRender(string name)
     {
         sharedVariables.toRenderFormulaNames.Remove(name);
-    }
-    public static void AddEquationToLists(string name)
-    {
-        sharedVariables.allFormulaNames.Add(name);
     }
     public static void ZoomHandler(System.ConsoleKey input)
     {
@@ -176,5 +176,57 @@
             sharedVariables.zoomFactor = 2;
             sharedVariables.numberSkip = 1;
         }
+    }
+    public static double makeDouble(char[] numberSegment)
+    {
+        int actualLength = 0;
+
+        for (int i = 0; i < numberSegment.Length; i++)
+        {
+            char test = numberSegment[i];
+
+            if (test != '\0')
+            {
+                actualLength++;
+            }
+        }
+
+        int commaLocation = Array.IndexOf(numberSegment, '.');
+
+        int beforeCommaLoc = 0;
+        int afterCommaLoc = 0;
+
+        int digitsBeforeComma = commaLocation;
+        int digitsAfterComma = actualLength - commaLocation;
+
+        char[] beforeComma = new char[digitsBeforeComma];
+        char[] afterComma = new char[digitsAfterComma];
+
+        for (int i = 0; i <= actualLength; i++)
+        {
+            int comLoc = commaLocation;
+
+            char toAdd = numberSegment[i];
+
+            if (i < commaLocation && toAdd != '.')
+            {
+                beforeComma[beforeCommaLoc] = toAdd;
+                beforeCommaLoc++;
+            }
+            else if (i > commaLocation && toAdd != '.')
+            {
+                afterComma[afterCommaLoc] = toAdd;
+                afterCommaLoc++;
+            }
+        }
+
+        int beforeCommaInt = int.Parse(beforeComma);
+        int afterCommaInt = int.Parse(afterComma);
+
+        string doubleString = new string(beforeCommaInt + "," + afterCommaInt);
+
+        double numberFinal = double.Parse(doubleString);
+
+        return numberFinal;
     }
 }
