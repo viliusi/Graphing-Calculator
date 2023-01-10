@@ -36,16 +36,13 @@ public class Renderers
 
         Console.Clear();
 
-        // foreach (KeyValuePair<string, double> kvp in formula)
-        // {
-        //     //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-        //     Console.WriteLine("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-        // }
+        foreach (KeyValuePair<string, char[]> kvp in formula)
+        {
+            //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
+            Console.WriteLine("Key = " + kvp.Key + " Value = ");
+        }
 
-
-
-
-
+        Console.ReadKey();
 
         // Different color from axis
         Console.ForegroundColor = ConsoleColor.Blue;

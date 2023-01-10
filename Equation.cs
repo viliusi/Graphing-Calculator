@@ -1,10 +1,6 @@
 public class Equation
 {
-    public class sharedVariables
-    {
-        public static string name;
-    }
-    public Equation(string formula)
+    public static void equationDecypherer(string formula)
     {
         formula = "f(x) = 2.4 + ( -0.4 - 3 ) + x + 3";
 
@@ -12,7 +8,7 @@ public class Equation
 
         string[] nameSplit = formula.Split('=');
 
-        sharedVariables.name = nameSplit[0];
+        string name = nameSplit[0];
 
         string formulaCut = nameSplit[1];
 
@@ -22,11 +18,6 @@ public class Equation
         {
             formulaArray[i] = formulaCut[i];
         }
-
-        equationDecypherer(formulaArray);
-    }
-    public static void equationDecypherer(char[] formulaArray)
-    {
         Dictionary<string, char[]> Formulas = new Dictionary<string, char[]>();
 
         int segmentNum = 0;
@@ -45,52 +36,68 @@ public class Equation
             {
                 case '+': // +
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "+";
+                    lastOperation = "+" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 case '-': // -
-                    Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "-";
-                    segmentNum++;
-                    numAdd = 0;
+                    if (numToAddArray[0] == '\0')
+                    {
+                        numToAddArray[numAdd] = test;
+                        numAdd++;
+                    }
+                    else
+                    {
+                        Formulas.Add(lastOperation, numToAddArray);
+                        lastOperation = "-" + segmentNum;
+                        segmentNum++;
+                        numAdd = 0;
+                        numToAddArray = nullArray(numToAddArray);
+                    }
                     break;
                 case '*': // *
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "*";
+                    lastOperation = "*" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 case '/': // /
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "/";
+                    lastOperation = "/" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 case '(': // (
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "(";
+                    lastOperation = "(" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 case ')': // )
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = ")";
+                    lastOperation = ")" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 case '^':
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "^";
+                    lastOperation = "^" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 case 's': // Sin
                     i += 2;
                     Formulas.Add(lastOperation, numToAddArray);
-                    lastOperation = "sin";
+                    lastOperation = "sin" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
+                    numToAddArray = nullArray(numToAddArray);
                     break;
                 default:
                     numToAddArray[numAdd] = test;
@@ -99,9 +106,19 @@ public class Equation
             }
         }
 
-        int indexofForm = Program.sharedVariables.allFormulaNames.IndexOf(Convert.ToString(sharedVariables.name[0]));
+        Program.sharedVariables.allFormulaNames.Add(Convert.ToString(nameSplit[0]));
 
-        // Program.sharedVariables.FormulasForRendering.Add(nameSplit[0], );
-        // Program.sharedVariables.allFormulaNames.Add(Convert.ToString(nameSplit[0]));
+        Program.sharedVariables.FormulasForRendering.Add(nameSplit[0], Formulas);
+
+        Program.sharedVariables.toRenderFormulaNames.Add(nameSplit[0]);
+    }
+    public static char[] nullArray(char[] toBeNulled)
+    {
+        for (int i = 0; i < toBeNulled.Length; i++)
+        {
+            toBeNulled[i] = '\0';
+        }
+
+        return toBeNulled;
     }
 }

@@ -11,12 +11,11 @@
         public static double scaleRatio;
         public static double lastResult;
         public static int inputFieldWidth;
-        public static Dictionary<string, char[]> FormulasForRendering = new Dictionary<string, char[]>();
+        public static Dictionary<string, Dictionary<string, char[]>> FormulasForRendering = new Dictionary<string, Dictionary<string, char[]>>();
         public static List<string> allFormulaNames = new List<string>();
         public static List<string> toRenderFormulaNames = new List<string>();
         public static int numberSkip;
         public static int zoomFactor;
-        public static int index = 0;
     }
     private static void Main(string[] args)
     {
@@ -49,8 +48,8 @@
                     break;
                 case ConsoleKey.I:
                     string currentFormula = Console.ReadLine();
-                    // Find out how to make multiple constructors with one command, goodluck me
-                    // Equation formula[sharedVariables.index] = new Equation(currentFormula);
+                    Equation.equationDecypherer(currentFormula);
+                    updateOrego(ConsoleKey.Enter);
                     break;
                 case ConsoleKey.O:
                     ZoomHandler(ConsoleKey.O);
@@ -125,9 +124,9 @@
         {
             int formulaToSend = indexOfFormulas[i];
 
-            // Dictionary<string, char[]> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
+            Dictionary<string, char[]> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
 
-            // Renderers.EquationRenderer(safeTravelsFormula);
+            Renderers.EquationRenderer(safeTravelsFormula);
         }
     }
     public static void AddToRender(string name)
