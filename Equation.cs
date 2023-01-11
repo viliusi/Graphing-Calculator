@@ -145,9 +145,20 @@ public class Equation
     }
     public static double Calculator(Dictionary<string, string> Formula, double x)
     {
+        double result = 0;
+
         // Noting down where start paranthesis and end parenthesis is
+        /* Look back on this soon, this will make math correct
         int[] indexOfSP = new int[Formula.Count]; 
         int[] indexOfEP = new int[Formula.Count];
+        
+        Dictionary<string, string> Results = new Dictionary<string, string>();
+
+        foreach (var item in Formula)
+        {
+            Results.Add(item.Key, null);
+        }
+
         
         for (int i = 0; i < Formula.Count; i++)
         {
@@ -167,7 +178,37 @@ public class Equation
             }
         }
 
-        double result = 0;
+        double[] mathedSegments = new double[Formula.Count];
+
+        int b = 0;
+
+        for (int i = indexOfSP.Length; indexOfSP.Length < i; i--)
+        {
+            int[] arrayOfSegmentsToMath = new int[Formula.Count];
+
+            int mathIndex = indexOfSP[i];
+
+            if (mathIndex <= Formula.Count)
+            {
+                int mathEnd = indexOfEP[b];
+
+                int timesToRepeat = mathEnd - mathIndex;
+
+                for (int c = mathIndex; c < mathEnd; c++)
+                {
+                    arrayOfSegmentsToMath.Append(c);
+                }
+
+                for (int a = 0; a < timesToRepeat; a++)
+                {
+                    
+                }
+            }
+            else
+            {
+                break;
+            }
+        } */
 
         return result;
     }
