@@ -18,28 +18,32 @@ public class Equation
         {
             formulaArray[i] = formulaCut[i];
         }
-        Dictionary<string, char[]> Formulas = new Dictionary<string, char[]>();
+        Dictionary<string, string> Formulas = new Dictionary<string, string>();
 
-        int segmentNum = 0;
+        int segmentNum = 1;
 
         int numAdd = 0;
 
         char[] numToAddArray = new char[9];
 
-        string lastOperation = "=";
+        string numToAdd;
+
+        string lastOperation = "=0";
 
         for (int i = 0; i < formulaArray.Length; i++)
         {
+
             char test = formulaArray[i];
 
             switch (test)
             {
                 case '+': // +
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "+" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 case '-': // -
                     if (numToAddArray[0] == '\0')
@@ -49,55 +53,62 @@ public class Equation
                     }
                     else
                     {
-                        Formulas.Add(lastOperation, numToAddArray);
+                        numToAdd = ConvertToString(numToAddArray);
+                        Formulas.Add(lastOperation, numToAdd);
                         lastOperation = "-" + segmentNum;
                         segmentNum++;
                         numAdd = 0;
-                        numToAddArray = nullArray(numToAddArray);
+                        numToAddArray = NullArray(numToAddArray);
                     }
                     break;
                 case '*': // *
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "*" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 case '/': // /
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "/" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 case '(': // (
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "(" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 case ')': // )
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = ")" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 case '^':
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "^" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 case 's': // Sin
                     i += 2;
-                    Formulas.Add(lastOperation, numToAddArray);
+                    numToAdd = ConvertToString(numToAddArray);
+                    Formulas.Add(lastOperation, numToAdd);
                     lastOperation = "sin" + segmentNum;
                     segmentNum++;
                     numAdd = 0;
-                    numToAddArray = nullArray(numToAddArray);
+                    numToAddArray = NullArray(numToAddArray);
                     break;
                 default:
                     numToAddArray[numAdd] = test;
@@ -106,13 +117,16 @@ public class Equation
             }
         }
 
+        numToAdd = ConvertToString(numToAddArray);
+        Formulas.Add(lastOperation, numToAdd);
+
         Program.sharedVariables.allFormulaNames.Add(Convert.ToString(nameSplit[0]));
 
         Program.sharedVariables.FormulasForRendering.Add(nameSplit[0], Formulas);
 
         Program.sharedVariables.toRenderFormulaNames.Add(nameSplit[0]);
     }
-    public static char[] nullArray(char[] toBeNulled)
+    public static char[] NullArray(char[] toBeNulled)
     {
         for (int i = 0; i < toBeNulled.Length; i++)
         {
@@ -120,5 +134,41 @@ public class Equation
         }
 
         return toBeNulled;
+    }
+    public static string ConvertToString(char[] input)
+    {
+        string String = new string(input);
+
+        String = String.Replace("\0", "");
+
+        return String;
+    }
+    public static double Calculator(Dictionary<string, string> Formula, double x)
+    {
+        // Noting down where start paranthesis and end parenthesis is
+        int[] indexOfSP = new int[Formula.Count]; 
+        int[] indexOfEP = new int[Formula.Count];
+        
+        for (int i = 0; i < Formula.Count; i++)
+        {
+            string test = Formula.ElementAt(i).Key;
+
+            if (test.Contains("("))
+            {
+                indexOfSP.Append(i);
+            }
+            else if (test.Contains(")"))
+            {
+                indexOfEP.Append(i);
+            }
+            else
+            {
+                
+            }
+        }
+
+        double result = 0;
+
+        return result;
     }
 }

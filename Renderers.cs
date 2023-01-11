@@ -30,20 +30,8 @@ public class Renderers
             }
         }
     }
-    public static void EquationRenderer(Dictionary<string, char[]> formula)
+    public static void EquationRenderer(Dictionary<string, string> formula)
     {
-        // Convert input to math equation here:
-
-        Console.Clear();
-
-        foreach (KeyValuePair<string, char[]> kvp in formula)
-        {
-            //textBox3.Text += ("Key = {0}, Value = {1}", kvp.Key, kvp.Value);
-            Console.WriteLine("Key = " + kvp.Key + " Value = ");
-        }
-
-        Console.ReadKey();
-
         // Different color from axis
         Console.ForegroundColor = ConsoleColor.Blue;
 
@@ -55,7 +43,7 @@ public class Renderers
         {
             double x = (i - Program.sharedVariables.xOregoDouble) / (Program.sharedVariables.scaleRatio * 2);
 
-            double math = Math.Sin(x + Math.PI);
+            double math = Equation.Calculator(formula, x);
 
             double result = math * Program.sharedVariables.scaleRatio;
 

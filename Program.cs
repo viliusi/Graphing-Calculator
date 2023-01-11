@@ -11,7 +11,7 @@
         public static double scaleRatio;
         public static double lastResult;
         public static int inputFieldWidth;
-        public static Dictionary<string, Dictionary<string, char[]>> FormulasForRendering = new Dictionary<string, Dictionary<string, char[]>>();
+        public static Dictionary<string, Dictionary<string, string>> FormulasForRendering = new Dictionary<string, Dictionary<string, string>>();
         public static List<string> allFormulaNames = new List<string>();
         public static List<string> toRenderFormulaNames = new List<string>();
         public static int numberSkip;
@@ -124,7 +124,7 @@
         {
             int formulaToSend = indexOfFormulas[i];
 
-            Dictionary<string, char[]> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
+            Dictionary<string, string> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
 
             Renderers.EquationRenderer(safeTravelsFormula);
         }
