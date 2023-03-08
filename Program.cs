@@ -71,18 +71,19 @@
             case ConsoleKey.W:
                 Program.sharedVariables.yOregoDouble -= sharedVariables.scaleRatio;
                 break;
-            case ConsoleKey.A:
+            case ConsoleKey.D:
                 Program.sharedVariables.xOregoDouble += (sharedVariables.scaleRatio * 2);
                 break;
             case ConsoleKey.S:
                 Program.sharedVariables.yOregoDouble += sharedVariables.scaleRatio;
                 break;
-            case ConsoleKey.D:
+            case ConsoleKey.A:
                 Program.sharedVariables.xOregoDouble -= (sharedVariables.scaleRatio * 2);
                 break;
             default:
                 break;
         }
+        
         Renderers.coordinateSytemRender();
 
         EquationHandler();
@@ -119,6 +120,8 @@
             }
         }
 
+        Renderers.EquationRenderer(0);
+
         // using the indexes we got, we retrieve the formulas and set them away to the renderer
         for (int i = 0; i < indexOfFormulas.Length; i++)
         {
@@ -126,7 +129,7 @@
 
             Dictionary<string, string> safeTravelsFormula = sharedVariables.FormulasForRendering.ElementAt(formulaToSend).Value;
 
-            Renderers.EquationRenderer(safeTravelsFormula);
+            //Renderers.EquationRenderer(safeTravelsFormula);
         }
     }
     public static void AddToRender(string name)

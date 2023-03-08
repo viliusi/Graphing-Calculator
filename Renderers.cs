@@ -30,9 +30,8 @@ public class Renderers
             }
         }
     }
-    public static void EquationRenderer(Dictionary<string, string> formula)
+    public static void EquationRenderer(/*Dictionary<string, string> formula*/ int formulaIndex)
     {
-        // Different color from axis
         Console.ForegroundColor = ConsoleColor.Blue;
 
         // Helps with the if statement for rendering lines correctly
@@ -43,7 +42,7 @@ public class Renderers
         {
             double x = (i - Program.sharedVariables.xOregoDouble) / (Program.sharedVariables.scaleRatio * 2);
 
-            double math = Equation.Calculator(formula, x);
+            double math = formulaCalc(formulaIndex, x);
 
             double result = math * Program.sharedVariables.scaleRatio;
 
@@ -78,6 +77,8 @@ public class Renderers
     }
     public static void axisNumbersRenderer()
     {
+        Console.ForegroundColor = ConsoleColor.White;
+
         double xLengthPositive = (Program.sharedVariables.xLength - Program.sharedVariables.xOrego);
         double yLengthPositive = (Program.sharedVariables.yLength - Program.sharedVariables.yOrego);
         double xLengthAdjustedPositive = (Program.sharedVariables.xLength - Program.sharedVariables.xOrego) / (Program.sharedVariables.scaleRatio * 2);
@@ -143,5 +144,33 @@ public class Renderers
     public static void errorRenderer()
     {
 
+    }
+    public static double formulaCalc(int formulaIndex, double x)
+    {
+        double result = 0;
+
+        switch (formulaIndex)
+        {
+            case 0:
+            result = Math.Sin(x);
+            break;
+            case 1:
+            
+            break;
+            case 2:
+            
+            break;
+            case 3:
+            
+            break;
+            case 4:
+            
+            break;
+            case 5:
+            
+            break;
+        }
+
+        return result;
     }
 }
