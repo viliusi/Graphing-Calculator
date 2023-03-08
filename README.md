@@ -2,9 +2,18 @@
 I'll be trying to create a rudamentary graphing caclulator in a C# Console
 
 This is a Graphing Calculator made entirely with the use of C#
-Currently it is set to render 'Sin(x)'
+Newest version has 6 different formulas you can render
+- sin(x)
+- cos(x)
+- tan(x)
+- log(x)
+- sqrt(x)
+- x^2
 
 When the coordinate system appears, you will have the ability to interact with it
-    WASD to move around and look at different parts of the system
-    R to reset your view back to the orego
-    Enter to just redraw the current setup
+- WASD to move around and look at different parts of the system
+- O to zoom in
+- P to zoom out
+- R to reset your view back to the orego
+- Enter to just redraw the current setup
+- F to choose which formulas to display
