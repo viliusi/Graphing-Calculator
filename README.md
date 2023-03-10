@@ -12,8 +12,8 @@ Newest version has 6 different formulas you can render
 
 When the coordinate system appears, you will have the ability to interact with it
 - WASD to move around and look at different parts of the system
-- O to zoom in
-- P to zoom out
+- O to zoom out
+- P to zoom in
 - R to reset your view back to the orego
 - Enter to just redraw the current setup
 - F to choose which formulas to display
