@@ -36,11 +36,33 @@
                     {
                         if (sharedVariables.toPrint.Contains(i))
                         {
-                            Console.ForegroundColor = ConsoleColor.Green;
+                            switch (i)
+                            {
+                                case 0:
+                                    Console.ForegroundColor = ConsoleColor.Red;
+                                    break;
+                                case 1:
+                                    Console.ForegroundColor = ConsoleColor.Green;
+                                    break;
+                                case 2:
+                                    Console.ForegroundColor = ConsoleColor.Blue;
+                                    break;
+                                case 3:
+                                    Console.ForegroundColor = ConsoleColor.Yellow;
+                                    break;
+                                case 4:
+                                    Console.ForegroundColor = ConsoleColor.Magenta;
+                                    break;
+                                case 5:
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    break;
+                                default:
+                                    break;
+                            }
                         }
                         else
                         {
-                            Console.ForegroundColor = ConsoleColor.Red;
+                            Console.ForegroundColor = ConsoleColor.Gray;
                         }
 
                         switch (i)

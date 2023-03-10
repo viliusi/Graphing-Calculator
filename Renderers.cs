@@ -47,11 +47,11 @@ public class Renderers
 
             double result = math * Program.sharedVariables.scaleRatio;
 
-            double yCoords = double.NaN;
+            int yCoords = int.MinValue;
 
             try
             {
-                yCoords = (Program.sharedVariables.yOregoDouble - result) * -1; 
+                yCoords = Convert.ToInt32(( result - Console.WindowHeight ) * -1 - ( Program.sharedVariables.yOregoDouble - Console.WindowHeight ) * -1); 
             }
             catch (OverflowException)
             {
@@ -60,7 +60,7 @@ public class Renderers
 
             if (0 < yCoords && yCoords < Console.WindowHeight)
             {
-                Console.SetCursorPosition(i, Convert.ToInt32(yCoords));
+                Console.SetCursorPosition(i, yCoords);
 
                 double mathDiffernce = Program.sharedVariables.lastResult - result;
 
