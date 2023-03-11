@@ -28,7 +28,7 @@ public class Renderers
             }
         }
     }
-    public static void EquationRenderer(/*Dictionary<string, string> formula*/ int formulaIndex)
+    public static void EquationRenderer(int formulaIndex)
     {
         // Helps with the if statement for rendering lines correctly
         Program.sharedVariables.lastResult = 0;
@@ -64,11 +64,11 @@ public class Renderers
 
                 double mathDiffernce = Program.sharedVariables.lastResult - result;
 
-                if (mathDiffernce < 0)
+                if (mathDiffernce < 0.2)
                 {
                     Console.Write("/");
                 }
-                else if (mathDiffernce > 0)
+                else if (mathDiffernce > 0.2)
                 {
                     Console.Write("\\");
                 }
