@@ -2,60 +2,74 @@
 {
     public static class sharedVariables
     {
-        public static double xOregoDouble;
-        public static double yOregoDouble;
-        public static double scaleRatio;
-        public static double lastResult;
-        public static int numberSkip;
-        public static int zoomFactor;
         public static bool formSelection;
         public static List<int> toPrint = new List<int>();
     }
     private static void Main(string[] args)
     {
-        resetScreenPos();
+        Renderers.ResetScreenPos();
 
-        ZoomHandler(ConsoleKey.Enter);
+        Renderers.ZoomHandler(ConsoleKey.Enter);
 
-        updateOrego(ConsoleKey.Enter);
+        Renderers.UpdateOrego(ConsoleKey.Enter);
 
         sharedVariables.formSelection = false;
 
         while (true)
         {
-            ConsoleKey movementDirection = Console.ReadKey().Key;
-
-            switch (movementDirection)
-            {
-                case ConsoleKey.W:
-                case ConsoleKey.A:
-                case ConsoleKey.S:
-                case ConsoleKey.D:
-                case ConsoleKey.Enter:
-                    {
-                        updateOrego(movementDirection);
-                    }
-                    break;
-                case ConsoleKey.R:
-                    resetScreenPos();
-                    updateOrego(ConsoleKey.Enter);
-                    ZoomHandler(ConsoleKey.Enter);
-                    break;
-                case ConsoleKey.O:
-                    ZoomHandler(ConsoleKey.O);
-                    updateOrego(ConsoleKey.Enter);
-                    break;
-                case ConsoleKey.P:
-                    ZoomHandler(ConsoleKey.P);
-                    updateOrego(ConsoleKey.Enter);
-                    break;
-                case ConsoleKey.F:
-                    sharedVariables.formSelection = true;
-                    Selection();
-                    break;
-                default:
-                    break;
-            }
+            InputHandler(Console.ReadKey().Key);
+        }
+    }
+    public static void InputHandler(ConsoleKey movementDirection)
+    {
+        switch (movementDirection)
+        {
+            case ConsoleKey.W:
+            case ConsoleKey.A:
+            case ConsoleKey.S:
+            case ConsoleKey.D:
+            case ConsoleKey.Enter:
+                {
+                    Renderers.UpdateOrego(movementDirection);
+                }
+                break;
+            case ConsoleKey.R:
+                Renderers.ResetScreenPos();
+                Renderers.UpdateOrego(ConsoleKey.Enter);
+                Renderers.ZoomHandler(ConsoleKey.Enter);
+                break;
+            case ConsoleKey.O:
+                Renderers.ZoomHandler(ConsoleKey.O);
+                Renderers.UpdateOrego(ConsoleKey.Enter);
+                break;
+            case ConsoleKey.P:
+                Renderers.ZoomHandler(ConsoleKey.P);
+                Renderers.UpdateOrego(ConsoleKey.Enter);
+                break;
+            case ConsoleKey.F:
+                sharedVariables.formSelection = true;
+                Selection();
+                break;
+            default:
+                break;
+        }
+    }
+    public static void PrintListHandler(int index)
+    {
+        if (sharedVariables.toPrint.Contains(index))
+        {
+            sharedVariables.toPrint.Remove(index);
+        }
+        else
+        {
+            sharedVariables.toPrint.Add(index);
+        }
+    }
+    public static void FormulaHandler()
+    {
+        foreach (var item in sharedVariables.toPrint)
+        {
+            Renderers.EquationRenderer(item);
         }
     }
     public static void Selection()
@@ -152,102 +166,15 @@
                         break;
                     case ConsoleKey.Escape:
                         sharedVariables.formSelection = false;
-                        resetScreenPos();
-                        updateOrego(ConsoleKey.Enter);
-                        ZoomHandler(ConsoleKey.Enter);
+                        Renderers.ResetScreenPos();
+                        Renderers.UpdateOrego(ConsoleKey.Enter);
+                        Renderers.ZoomHandler(ConsoleKey.Enter);
                         break;
                     default:
                         break;
                 }
                 Console.Clear();
             }
-        }
-    }
-    public static void PrintListHandler(int index)
-    {
-        if (sharedVariables.toPrint.Contains(index))
-        {
-            sharedVariables.toPrint.Remove(index);
-        }
-        else
-        {
-            sharedVariables.toPrint.Add(index);
-        }
-    }
-    public static void updateOrego(System.ConsoleKey input)
-    {
-        switch (input)
-        {
-            case ConsoleKey.W:
-                Program.sharedVariables.yOregoDouble += sharedVariables.scaleRatio;
-                break;
-            case ConsoleKey.D:
-                Program.sharedVariables.xOregoDouble += (sharedVariables.scaleRatio * 2);
-                break;
-            case ConsoleKey.S:
-                Program.sharedVariables.yOregoDouble -= sharedVariables.scaleRatio;
-                break;
-            case ConsoleKey.A:
-                Program.sharedVariables.xOregoDouble -= (sharedVariables.scaleRatio * 2);
-                break;
-            default:
-                break;
-        }
-
-        Renderers.coordinateSytemRender();
-
-        Renderers.axisNumbersRenderer();
-
-        formulaHandler();
-    }
-    private static void formulaHandler()
-    {
-        foreach (var item in sharedVariables.toPrint)
-        {
-            Renderers.EquationRenderer(item);
-        }
-    }
-    public static void resetScreenPos()
-    {
-        Program.sharedVariables.xOregoDouble = Console.WindowWidth * 0.3;
-        Program.sharedVariables.yOregoDouble = Console.WindowHeight * 0.5;
-    }
-    public static void ZoomHandler(System.ConsoleKey input)
-    {
-        switch (input)
-        {
-            case ConsoleKey.O:
-                if (2 < sharedVariables.scaleRatio)
-                {
-                    sharedVariables.scaleRatio -= sharedVariables.zoomFactor;
-                }
-                break;
-
-            case ConsoleKey.P:
-                if (12 > sharedVariables.scaleRatio)
-                {
-                    sharedVariables.scaleRatio += sharedVariables.zoomFactor;
-                }
-                break;
-
-            case ConsoleKey.Enter:
-                sharedVariables.scaleRatio = 4;
-                sharedVariables.numberSkip = 1;
-                sharedVariables.zoomFactor = 1;
-                break;
-            default:
-                break;
-        }
-
-        if (sharedVariables.scaleRatio == 3)
-        {
-            sharedVariables.zoomFactor = 1;
-            sharedVariables.numberSkip = 5;
-        }
-        else if (sharedVariables.scaleRatio == 8)
-        {
-            sharedVariables.zoomFactor = 2;
-            sharedVariables.numberSkip = 1;
         }
     }
 }
