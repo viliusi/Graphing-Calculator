@@ -210,28 +210,28 @@
                     result = IntegralStart(0);
 
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(result);
+                    Console.WriteLine("The integral area is: " + result);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D1:
                     result = IntegralStart(1);
 
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(result);
+                    Console.WriteLine("The integral area is: " + result);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D2:
                     result = IntegralStart(2);
 
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(result);
+                    Console.WriteLine("The integral area is: " + result);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.D3:
                     result = IntegralStart(3);
 
                     Console.ForegroundColor = ConsoleColor.White;
-                    Console.WriteLine(result);
+                    Console.WriteLine("The integral area is: " + result);
                     Console.ReadKey();
                     break;
                 case ConsoleKey.Escape:
@@ -243,11 +243,14 @@
                 default:
                     break;
             }
+
             Console.Clear();
         }
     }
     public static double IntegralStart(int type)
     {
+        Console.Clear();
+
         double startX = 0;
         double endX = 0;
 
@@ -256,12 +259,12 @@
         while (chooseFormula == true)
         {
             Console.WriteLine(@"Pick a formula
-                            0: Sin(x)
-                            1: Cos(x)
-                            2: Tan(x)
-                            3: Log(x)
-                            4: sqrt(x)
-                            5: x^2");
+            0: Sin(x)
+            1: Cos(x)
+            2: Tan(x)
+            3: Log(x)
+            4: sqrt(x)
+            5: x^2");
 
             ConsoleKey formula = Console.ReadKey().Key;
 

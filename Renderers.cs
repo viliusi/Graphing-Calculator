@@ -45,9 +45,9 @@ public class Renderers
         // This is practicaly the one that does all the math, the i basically just tells it to do this math for each x value from one end of the screen to the other
         for (int i = 0; i < Console.WindowWidth; i++)
         {
-            double yValue = (i - sharedVariables.xOrego) / (sharedVariables.Scale * 2);
+            double x = (i - sharedVariables.xOrego) / (sharedVariables.Scale * 2);
 
-            double math = Calculations.FormulaCalc(formulaIndex, yValue);
+            double math = Calculations.FormulaCalc(formulaIndex, x);
 
             if (math == double.NaN)
             {
@@ -73,17 +73,17 @@ public class Renderers
 
                 double mathDiffernce = sharedVariables.LastResult - result;
 
-                if (mathDiffernce < 0.2)
+                if (mathDiffernce < (0.1 * sharedVariables.Scale))
                 {
                     Console.Write("/");
                 }
-                else if (mathDiffernce > 0.2)
+                else if (mathDiffernce > (-0.1 * sharedVariables.Scale))
                 {
                     Console.Write("\\");
                 }
                 else
                 {
-                    Console.Write("#");
+                    Console.Write("¤");
                 }
             }
 
