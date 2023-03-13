@@ -37,6 +37,126 @@ public class Calculations
                 return result;
         }
     }
+    public static double IntegralStart(int formulaIndex)
+    {
+        int type = 0;
+        bool chooseType = true;
+        while (chooseType == true)
+        {
+            Console.WriteLine(@"Choose which type of integral calculation you want to do (Press Escape to exit)
+            0: Lower limit
+            1: Upper limit
+            2: Middle limit
+            3: Trapez");
+
+            ConsoleKey typeKey = Console.ReadKey().Key;
+
+            switch (typeKey)
+            {
+                case ConsoleKey.D0:
+                    type = 0;
+                    chooseType = false;
+                    break;
+                case ConsoleKey.D1:
+                    type = 1;
+                    chooseType = false;
+                    break;
+                case ConsoleKey.D2:
+                    type = 2;
+                    chooseType = false;
+                    break;
+                case ConsoleKey.D3:
+                    type = 3;
+                    chooseType = false;
+                    break;
+                case ConsoleKey.D4:
+                    type = 4;
+                    chooseType = false;
+                    break;
+                case ConsoleKey.D5:
+                    type = 5;
+                    chooseType = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        Console.Clear();
+
+        double startX = 0;
+        double endX = 0;
+
+        bool chooseStart = true;
+        while (chooseStart == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose a starting point: (Must be less than ending)");
+
+            try
+            {
+                startX = Double.Parse(Console.ReadLine());
+
+                chooseStart = false;
+            }
+            catch (System.Exception)
+            {
+                chooseStart = true;
+            }
+        }
+
+        bool chooseEnd = true;
+        while (chooseEnd == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose an ending point: (Must be greater than starting)");
+
+            try
+            {
+                endX = Double.Parse(Console.ReadLine());
+
+                chooseEnd = false;
+            }
+            catch (System.Exception)
+            {
+                chooseEnd = true;
+            }
+        }
+
+        int steps = 0;
+
+        bool chooseSteps = true;
+        while (chooseSteps == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose how many steps you want to take: (Must be greater than 0)");
+
+            try
+            {
+                steps = int.Parse(Console.ReadLine());
+
+                if (steps > 0)
+                {
+                    chooseSteps = false;
+                }
+                else
+                {
+                    chooseSteps = true;
+                }
+            }
+            catch (System.Exception)
+            {
+                chooseSteps = true;
+            }
+        }
+
+        Console.Clear();
+
+        return Integral(formulaIndex, startX, endX, steps, type);
+    }
     public static double Integral(int index, double start, double end, double steps, int type)
     {
         double result = 0;
@@ -110,5 +230,33 @@ public class Calculations
         }
         
         return result;
+    }
+    public static double FindMax(int index, double min, double max, double start, int precision)
+    {
+        double highestX = start;
+        double highestY = FormulaCalc(index, start);
+
+        // check for the highest y value within min and max
+        for (double i = min; i < max; i += (max - min) / precision)
+        {
+            if (FormulaCalc(index, i) > highestY)
+            {
+                highestX = i;
+                highestY = FormulaCalc(index, i);
+            }
+        }
+
+        double lastHighestX = highestX;
+
+        for (double i = lastHighestX - precision; i < lastHighestX + precision; i += ((lastHighestX + precision) - (lastHighestX - precision)) / (precision * precision))
+        {
+            if (FormulaCalc(index, i) > highestY)
+            {
+                highestX = i;
+                highestY = FormulaCalc(index, i);
+            }
+        }
+
+        return highestX;
     }
 }
