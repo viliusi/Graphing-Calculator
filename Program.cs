@@ -87,16 +87,16 @@
             {
                 Console.ForegroundColor = ConsoleColor.White;
 
-                Console.WriteLine("Select which formulas you want to see (Green = Selected, Red = Not Selected) (Press Escape to exit)");
+                Console.WriteLine("Select which formulas you want to see (Press Escape to exit)");
 
-                for (int i = 0; i <= 5; i++)
+                for (int i = 0; i <= 7; i++)
                 {
                     if (sharedVariables.toPrint.Contains(i))
                     {
                         switch (i)
                         {
                             case 0:
-                                Console.ForegroundColor = ConsoleColor.Red;
+                                Console.ForegroundColor = ConsoleColor.DarkBlue;
                                 break;
                             case 1:
                                 Console.ForegroundColor = ConsoleColor.Green;
@@ -112,6 +112,12 @@
                                 break;
                             case 5:
                                 Console.ForegroundColor = ConsoleColor.Cyan;
+                                break;
+                            case 6:
+                                Console.ForegroundColor = ConsoleColor.Red;
+                                break;
+                            case 7:
+                                Console.ForegroundColor = ConsoleColor.Red;
                                 break;
                             default:
                                 break;
@@ -142,6 +148,12 @@
                         case 5:
                             Console.WriteLine("5: x^2");
                             break;
+                        case 6:
+                            Console.WriteLine("6: x^(2/3)+xsqrt(1-x^2)");
+                            break;
+                        case 7:
+                            Console.WriteLine("7: x^(2/3)-xsqrt(1-x^2)");
+                            break;
                         default:
                             break;
                     }
@@ -168,6 +180,12 @@
                         break;
                     case ConsoleKey.D5:
                         PrintListHandler(5);
+                        break;
+                    case ConsoleKey.D6:
+                        PrintListHandler(6);
+                        break;
+                    case ConsoleKey.D7:
+                        PrintListHandler(7);
                         break;
                     case ConsoleKey.Escape:
                         sharedVariables.formSelection = false;
@@ -202,7 +220,9 @@
             2: Tan(x)
             3: Log(x)
             4: sqrt(x)
-            5: x^2");
+            5: x^2
+            6: x^(2/3)+xsqrt(1-x^2)
+            7: x^(2/3)-xsqrt(1-x^2)");
 
                     ConsoleKey formula = Console.ReadKey().Key;
 
@@ -232,6 +252,14 @@
                             formulaIndex = 5;
                             chooseFormula = false;
                             break;
+                        case ConsoleKey.D6:
+                            formulaIndex = 6;
+                            chooseFormula = false;
+                            break;
+                        case ConsoleKey.D7:
+                            formulaIndex = 7;
+                            chooseFormula = false;
+                            break;
                         default:
                             chooseFormula = true;
                             break;
@@ -239,10 +267,7 @@
 
                     Console.WriteLine(@"Select which calculation you want to do (Press Escape to exit)
                 0: Integral
-                1: Find highest point
-                2: Find lowest point (TBD)
-                3: Find local maxima (TBD)
-                4: Find local minima (TBD)");
+                1: Find highest point");
 
                     ConsoleKey formSelectionKey = Console.ReadKey().Key;
 

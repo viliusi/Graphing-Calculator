@@ -16,7 +16,7 @@ public class Calculations
         switch (formulaIndex)
         {
             case 0:
-                Console.ForegroundColor = ConsoleColor.Red;
+                Console.ForegroundColor = ConsoleColor.DarkBlue;
                 return Math.Sin(x);
             case 1:
                 Console.ForegroundColor = ConsoleColor.Green;
@@ -33,6 +33,19 @@ public class Calculations
             case 5:
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 return Math.Pow(x, 2);
+            case 6:
+                Console.ForegroundColor = ConsoleColor.Red;
+                return Math.Sqrt(1 - Math.Pow(Math.Abs(x) - 1, 2));
+            case 7:
+                Console.ForegroundColor = ConsoleColor.Red;
+                if (-2 <= x && x <= 2)
+                {
+                    return Math.Pow(x, 2) - 4;
+                }
+                else
+                {
+                    return double.NaN;
+                }
             default:
                 return result;
         }
@@ -176,7 +189,7 @@ public class Calculations
         else if (type == 1)
         {
             double width = (end - start) / steps;
-            
+
             double x = start + width;
 
             while (x < end)
@@ -189,7 +202,7 @@ public class Calculations
         {
             double width = (end - start) / steps;
 
-            double x = start + ( width * 0.5 );
+            double x = start + (width * 0.5);
 
             while (x < end)
             {
@@ -228,7 +241,7 @@ public class Calculations
                 pastX = x;
             }
         }
-        
+
         return result;
     }
     public static double FindMax(int index, double min, double max, double start, int precision)

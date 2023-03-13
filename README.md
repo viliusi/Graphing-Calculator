@@ -6,9 +6,11 @@ Newest version has 6 different formulas you can render
 - sin(x)
 - cos(x)
 - tan(x)
-- log(x)
+- log (x)
 - sqrt(x)
 - x^2
+- sqrt(1 - (Abs(x) - 1)^2)
+- x^2 - 4
 
 When the coordinate system appears, you will have the ability to interact with it
 - WASD to move around and look at different parts of the system
