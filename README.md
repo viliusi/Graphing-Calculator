@@ -2,7 +2,7 @@
 I'll be trying to create a rudamentary graphing caclulator in a C# Console
 
 This is a Graphing Calculator made entirely with the use of C#
-Newest version has 6 different formulas you can render
+Newest version has some different formulas you can render
 - sin(x)
 - cos(x)
 - tan(x)
