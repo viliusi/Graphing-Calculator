@@ -17,3 +17,4 @@ When the coordinate system appears, you will have the ability to interact with i
 - R to reset your view back to the orego
 - Enter to just redraw the current setup
 - F to choose which formulas to display
+- C to do integral calculations

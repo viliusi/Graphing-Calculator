@@ -3,6 +3,7 @@
     public static class sharedVariables
     {
         public static bool formSelection;
+        public static bool caulculationSelection;
         public static List<int> toPrint = new List<int>();
     }
     private static void Main(string[] args)
@@ -49,6 +50,10 @@
             case ConsoleKey.F:
                 sharedVariables.formSelection = true;
                 Selection();
+                break;
+            case ConsoleKey.C:
+                sharedVariables.caulculationSelection = true;
+                CalculationSetup();
                 break;
             default:
                 break;
@@ -176,5 +181,190 @@
                 Console.Clear();
             }
         }
+    }
+    public static void CalculationSetup()
+    {
+        double result = double.NaN;
+
+        while (sharedVariables.caulculationSelection == true)
+        {
+            Console.Clear();
+
+            Console.ForegroundColor = ConsoleColor.White;
+
+            Console.WriteLine("Select which calculation you want to do (Press Escape to exit)");
+
+            Console.WriteLine("0: Lower limit");
+
+            Console.WriteLine("1: Upper limit");
+
+            Console.WriteLine("2: Middle limit");
+
+            Console.WriteLine("3: Trapez");
+
+            ConsoleKey typeSelect = Console.ReadKey().Key;
+
+            switch (typeSelect)
+            {
+                case ConsoleKey.D0:
+                    result = IntegralStart(0);
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(result);
+                    Console.ReadKey();
+                    break;
+                case ConsoleKey.D1:
+                    result = IntegralStart(1);
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(result);
+                    Console.ReadKey();
+                    break;
+                case ConsoleKey.D2:
+                    result = IntegralStart(2);
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(result);
+                    Console.ReadKey();
+                    break;
+                case ConsoleKey.D3:
+                    result = IntegralStart(3);
+
+                    Console.ForegroundColor = ConsoleColor.White;
+                    Console.WriteLine(result);
+                    Console.ReadKey();
+                    break;
+                case ConsoleKey.Escape:
+                    sharedVariables.caulculationSelection = false;
+                    Renderers.ResetScreenPos();
+                    Renderers.UpdateOrego(ConsoleKey.Enter);
+                    Renderers.ZoomHandler(ConsoleKey.Enter);
+                    break;
+                default:
+                    break;
+            }
+            Console.Clear();
+        }
+    }
+    public static double IntegralStart(int type)
+    {
+        double startX = 0;
+        double endX = 0;
+
+        int formulaIndex = -1;
+        bool chooseFormula = true;
+        while (chooseFormula == true)
+        {
+            Console.WriteLine(@"Pick a formula
+                            0: Sin(x)
+                            1: Cos(x)
+                            2: Tan(x)
+                            3: Log(x)
+                            4: sqrt(x)
+                            5: x^2");
+
+            ConsoleKey formula = Console.ReadKey().Key;
+
+            switch (formula)
+            {
+                case ConsoleKey.D0:
+                    formulaIndex = 0;
+                    chooseFormula = false;
+                    break;
+                case ConsoleKey.D1:
+                    formulaIndex = 1;
+                    chooseFormula = false;
+                    break;
+                case ConsoleKey.D2:
+                    formulaIndex = 2;
+                    chooseFormula = false;
+                    break;
+                case ConsoleKey.D3:
+                    formulaIndex = 3;
+                    chooseFormula = false;
+                    break;
+                case ConsoleKey.D4:
+                    formulaIndex = 4;
+                    chooseFormula = false;
+                    break;
+                case ConsoleKey.D5:
+                    formulaIndex = 5;
+                    chooseFormula = false;
+                    break;
+                default:
+                    chooseFormula = true;
+                    break;
+            }
+        }
+
+        bool chooseStart = true;
+        while (chooseStart == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose a starting point: (Must be less than ending)");
+
+            try
+            {
+                startX = Double.Parse(Console.ReadLine());
+
+                chooseStart = false;
+            }
+            catch (System.Exception)
+            {
+                chooseStart = true;
+            }
+        }
+
+        bool chooseEnd = true;
+        while (chooseEnd == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose an ending point: (Must be greater than starting)");
+
+            try
+            {
+                endX = Double.Parse(Console.ReadLine());
+
+                chooseEnd = false;
+            }
+            catch (System.Exception)
+            {
+                chooseEnd = true;
+            }
+        }
+
+        int steps = 0;
+
+        bool chooseSteps = true;
+        while (chooseSteps == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine("Choose how many steps you want to take: (Must be greater than 0)");
+
+            try
+            {
+                steps = int.Parse(Console.ReadLine());
+
+                if (steps > 0)
+                {
+                    chooseSteps = false;
+                }
+                else
+                {
+                    chooseSteps = true;
+                }
+            }
+            catch (System.Exception)
+            {
+                chooseSteps = true;
+            }
+        }
+
+        Console.Clear();
+
+        return Calculations.Integral(formulaIndex, startX, endX, steps, type);
     }
 }

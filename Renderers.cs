@@ -47,7 +47,7 @@ public class Renderers
         {
             double yValue = (i - sharedVariables.xOrego) / (sharedVariables.Scale * 2);
 
-            double math = FormulaCalc(formulaIndex, yValue);
+            double math = Calculations.FormulaCalc(formulaIndex, yValue);
 
             if (math == double.NaN)
             {
@@ -137,34 +137,6 @@ public class Renderers
                 Console.SetCursorPosition(Convert.ToInt32(sharedVariables.xOrego), Convert.ToInt32((i * sharedVariables.Scale) + Convert.ToInt16(sharedVariables.yOrego)));
                 Console.Write(Math.Abs(i));
             }
-        }
-    }
-    public static double FormulaCalc(int formulaIndex, double x)
-    {
-        double result = double.NaN;
-
-        switch (formulaIndex)
-        {
-            case 0:
-                Console.ForegroundColor = ConsoleColor.Red;
-                return Math.Sin(x);
-            case 1:
-                Console.ForegroundColor = ConsoleColor.Green;
-                return Math.Cos(x);
-            case 2:
-                Console.ForegroundColor = ConsoleColor.Blue;
-                return Math.Tan(x);
-            case 3:
-                Console.ForegroundColor = ConsoleColor.Yellow;
-                return Math.Log(x);
-            case 4:
-                Console.ForegroundColor = ConsoleColor.Magenta;
-                return Math.Sqrt(x);
-            case 5:
-                Console.ForegroundColor = ConsoleColor.Cyan;
-                return Math.Pow(x, 2);
-            default:
-                return result;
         }
     }
     public static void UpdateOrego(System.ConsoleKey input)
