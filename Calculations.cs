@@ -46,6 +46,9 @@ public class Calculations
                 {
                     return double.NaN;
                 }
+            case 8:
+                Console.ForegroundColor = ConsoleColor.DarkYellow;
+                return 1 / (1 + Math.Pow(Math.E, -x));
             default:
                 return result;
         }

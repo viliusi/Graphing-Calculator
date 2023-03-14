@@ -89,7 +89,7 @@
 
                 Console.WriteLine("Select which formulas you want to see (Press Escape to exit)");
 
-                for (int i = 0; i <= 7; i++)
+                for (int i = 0; i <= 8; i++)
                 {
                     if (sharedVariables.toPrint.Contains(i))
                     {
@@ -118,6 +118,9 @@
                                 break;
                             case 7:
                                 Console.ForegroundColor = ConsoleColor.Red;
+                                break;
+                            case 8:
+                                Console.ForegroundColor = ConsoleColor.DarkYellow;
                                 break;
                             default:
                                 break;
@@ -154,6 +157,9 @@
                         case 7:
                             Console.WriteLine("7: x^(2/3)-xsqrt(1-x^2)");
                             break;
+                        case 8:
+                            Console.WriteLine("8: 1/(1+e^-x)");
+                            break;
                         default:
                             break;
                     }
@@ -186,6 +192,9 @@
                         break;
                     case ConsoleKey.D7:
                         PrintListHandler(7);
+                        break;
+                    case ConsoleKey.D8:
+                        PrintListHandler(8);
                         break;
                     case ConsoleKey.Escape:
                         sharedVariables.formSelection = false;
@@ -222,7 +231,8 @@
             4: sqrt(x)
             5: x^2
             6: x^(2/3)+xsqrt(1-x^2)
-            7: x^(2/3)-xsqrt(1-x^2)");
+            7: x^(2/3)-xsqrt(1-x^2)
+            8: 1/(1+e^-x)");
 
                     ConsoleKey formula = Console.ReadKey().Key;
 
@@ -265,11 +275,15 @@
                             break;
                     }
 
+                    Console.Clear();
+
                     Console.WriteLine(@"Select which calculation you want to do (Press Escape to exit)
                 0: Integral
                 1: Find highest point");
 
                     ConsoleKey formSelectionKey = Console.ReadKey().Key;
+
+                    Console.Clear();
 
                     switch (formSelectionKey)
                     {
