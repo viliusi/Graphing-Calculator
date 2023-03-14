@@ -82,14 +82,6 @@ public class Calculations
                     type = 3;
                     chooseType = false;
                     break;
-                case ConsoleKey.D4:
-                    type = 4;
-                    chooseType = false;
-                    break;
-                case ConsoleKey.D5:
-                    type = 5;
-                    chooseType = false;
-                    break;
                 default:
                     break;
             }
@@ -97,72 +89,27 @@ public class Calculations
 
         Console.Clear();
 
-        double startX = 0;
-        double endX = 0;
+        double startX = Program.Choose("Choose a starting point:");
 
-        bool chooseStart = true;
-        while (chooseStart == true)
+        double endX = double.MinValue;
+
+        while (startX >= endX)
         {
-            Console.Clear();
-
-            Console.WriteLine("Choose a starting point: (Must be less than ending)");
-
-            try
-            {
-                startX = Double.Parse(Console.ReadLine());
-
-                chooseStart = false;
-            }
-            catch (System.Exception)
-            {
-                chooseStart = true;
-            }
+            endX = Program.Choose("Choose an ending point: (Must be greater than starting)");
         }
 
-        bool chooseEnd = true;
-        while (chooseEnd == true)
+        int steps = -1;
+        while (steps <= 1)
         {
-            Console.Clear();
-
-            Console.WriteLine("Choose an ending point: (Must be greater than starting)");
+            double step = Program.Choose("Choose the Steps: (Must be greater than 0)");
 
             try
             {
-                endX = Double.Parse(Console.ReadLine());
-
-                chooseEnd = false;
+                steps = Convert.ToInt32(step);
             }
             catch (System.Exception)
             {
-                chooseEnd = true;
-            }
-        }
 
-        int steps = 0;
-
-        bool chooseSteps = true;
-        while (chooseSteps == true)
-        {
-            Console.Clear();
-
-            Console.WriteLine("Choose how many steps you want to take: (Must be greater than 0)");
-
-            try
-            {
-                steps = int.Parse(Console.ReadLine());
-
-                if (steps > 0)
-                {
-                    chooseSteps = false;
-                }
-                else
-                {
-                    chooseSteps = true;
-                }
-            }
-            catch (System.Exception)
-            {
-                chooseSteps = true;
             }
         }
 
@@ -244,10 +191,69 @@ public class Calculations
 
         return result;
     }
-    public static double FindMax(int index, double min, double max, double start, int precision)
+    public static void Extrememum(int formulaIndex)
     {
-        double highestX = start;
-        double highestY = FormulaCalc(index, start);
+        int type = -1;
+        bool chooseType = true;
+        while (chooseType == true)
+        {
+            Console.WriteLine(@"Choose which type of extrememum calculation you want to do (Press Escape to exit)
+            0: Minimum
+            1: Maximum");
+
+            ConsoleKey typeKey = Console.ReadKey().Key;
+
+            switch (typeKey)
+            {
+                case ConsoleKey.D0:
+                    type = 0;
+                    chooseType = false;
+                    break;
+                case ConsoleKey.D1:
+                    type = 1;
+                    chooseType = false;
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        double start = Program.Choose("Choose a starting point:");
+
+        double end = double.MinValue;
+        while (start >= end)
+        {
+            end = Program.Choose("Choose an ending point: (Must be greater than starting)");
+        }
+
+        int precision = -1;
+        while (precision <= 1)
+        {
+            double prec = Program.Choose("Choose the precision: (Must be greater than 0)");
+
+            try
+            {
+                precision = Convert.ToInt32(prec);
+            }
+            catch (System.Exception)
+            {
+
+            }
+        }
+
+        if (type == 0)
+        {
+            FindMin(formulaIndex, start, end, precision);
+        }
+        else if (type == 1)
+        {
+            FindMax(formulaIndex, start, end, precision);
+        }
+    }
+    public static void FindMax(int index, double min, double max, int precision)
+    {
+        double highestX = min;
+        double highestY = FormulaCalc(index, highestX);
 
         // check for the highest y value within min and max
         for (double i = min; i < max; i += (max - min) / precision)
@@ -261,7 +267,27 @@ public class Calculations
 
         double lastHighestX = highestX;
 
-        for (double i = lastHighestX - precision; i < lastHighestX + precision; i += ((lastHighestX + precision) - (lastHighestX - precision)) / (precision * precision))
+        double iPredict = lastHighestX - precision;
+        if (iPredict < min)
+        {
+            iPredict = min;
+        }
+        else if (iPredict > max)
+        {
+            iPredict = max;
+        }
+
+        double iMaxPredict = lastHighestX + precision;
+        if (iMaxPredict < min)
+        {
+            iMaxPredict = min;
+        }
+        else if (iMaxPredict > max)
+        {
+            iMaxPredict = max;
+        }
+
+        for (double i = iPredict; i < iMaxPredict; i += ((lastHighestX + precision) - (lastHighestX - precision)) / (precision * precision))
         {
             if (FormulaCalc(index, i) > highestY)
             {
@@ -270,6 +296,54 @@ public class Calculations
             }
         }
 
-        return highestX;
+        Program.ShowResultXY("The highest X location was: ", highestX, " With the value of: ", highestY);
+    }
+    public static void FindMin(int index, double min, double max, int precision)
+    {
+        double lowestX = min;
+        double lowestY = FormulaCalc(index, lowestX);
+
+        // check for the highest y value within min and max
+        for (double i = min; i < max; i += (max - min) / precision)
+        {
+            if (FormulaCalc(index, i) < lowestY)
+            {
+                lowestX = i;
+                lowestY = FormulaCalc(index, i);
+            }
+        }
+
+        double lastLowestX = lowestX;
+
+        double iPredict = lastLowestX - precision;
+        if (iPredict < min)
+        {
+            iPredict = min;
+        }
+        else if (iPredict > max)
+        {
+            iPredict = max;
+        }
+
+        double iMaxPredict = lastLowestX + precision;
+        if (iMaxPredict < min)
+        {
+            iMaxPredict = min;
+        }
+        else if (iMaxPredict > max)
+        {
+            iMaxPredict = max;
+        }
+
+        for (double i = iPredict; i < iMaxPredict; i += ((lastLowestX + precision) - (lastLowestX - precision)) / (precision * precision))
+        {
+            if (FormulaCalc(index, i) < lowestY)
+            {
+                lowestX = i;
+                lowestY = FormulaCalc(index, i);
+            }
+        }
+
+        Program.ShowResultXY("The lowest X location was: ", lowestX, " With the value of: ", lowestY);
     }
 }

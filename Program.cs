@@ -274,15 +274,10 @@
                     switch (formSelectionKey)
                     {
                         case ConsoleKey.D0:
-                            Calculations.IntegralStart(formulaIndex);
+                            ShowResult("The integral area is: ", Calculations.IntegralStart(formulaIndex));
                             break;
                         case ConsoleKey.D1:
-                            double x = Calculations.FindMax(formulaIndex, -100, 100, 0, 100);
-
-                            Console.Clear();
-                            Console.ForegroundColor = ConsoleColor.White;
-                            Console.WriteLine("The highest point is at x = " + x + " and at that point y = " + Calculations.FormulaCalc(formulaIndex, x));
-                            Console.ReadKey();
+                            Calculations.Extrememum(formulaIndex);
                             break;
                         case ConsoleKey.Escape:
                             sharedVariables.caulculationSelection = false;
@@ -297,5 +292,49 @@
                 }
             }
         }
+    }
+    public static double Choose(string message)
+    {
+        double number = double.NaN;
+
+        bool choose = true;
+        while (choose == true)
+        {
+            Console.Clear();
+
+            Console.WriteLine(message);
+
+            try
+            {
+                number = Double.Parse(Console.ReadLine());
+
+                choose = false;
+            }
+            catch (System.Exception)
+            {
+                choose = true;
+            }
+
+        }
+
+        return number;
+    }
+    public static void ShowResult(string message, double result)
+    {
+        Console.Clear();
+
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine(message + result);
+
+        Console.ReadKey();
+    }
+    public static void ShowResultXY(string messageX, double resultX, string messageY, double resultY)
+    {
+        Console.Clear();
+
+        Console.ForegroundColor = ConsoleColor.White;
+        Console.WriteLine(messageX + resultX + messageY + resultY);
+
+        Console.ReadKey();
     }
 }
