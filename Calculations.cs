@@ -261,7 +261,7 @@ public class Calculations
         // check for the highest y value within min and max
         for (double i = min; i < max; i += (max - min) / precision)
         {
-            if (FormulaCalc(index, i) > highestY)
+            if (FormulaCalc(index, i) > highestY || FormulaCalc(index, i) != double.NaN)
             {
                 highestX = i;
                 highestY = FormulaCalc(index, i);
@@ -292,12 +292,15 @@ public class Calculations
 
         for (double i = iPredict; i < iMaxPredict; i += ((lastHighestX + precision) - (lastHighestX - precision)) / (precision * precision))
         {
-            if (FormulaCalc(index, i) > highestY)
+            if (FormulaCalc(index, i) > highestY || FormulaCalc(index, i) != double.NaN)
             {
                 highestX = i;
                 highestY = FormulaCalc(index, i);
             }
         }
+
+        highestX = Math.Round(highestX, 2);
+        highestY = Math.Round(FormulaCalc(index, highestX), 2);
 
         Program.ShowResultXY("The highest X location was: ", highestX, " With the value of: ", highestY);
     }
@@ -309,7 +312,7 @@ public class Calculations
         // check for the highest y value within min and max
         for (double i = min; i < max; i += (max - min) / precision)
         {
-            if (FormulaCalc(index, i) < lowestY)
+            if (FormulaCalc(index, i) < lowestY || FormulaCalc(index, i) != double.NaN)
             {
                 lowestX = i;
                 lowestY = FormulaCalc(index, i);
@@ -340,12 +343,15 @@ public class Calculations
 
         for (double i = iPredict; i < iMaxPredict; i += ((lastLowestX + precision) - (lastLowestX - precision)) / (precision * precision))
         {
-            if (FormulaCalc(index, i) < lowestY)
+            if (FormulaCalc(index, i) < lowestY || FormulaCalc(index, i) != double.NaN)
             {
                 lowestX = i;
                 lowestY = FormulaCalc(index, i);
             }
         }
+
+        lowestX = Math.Round(lowestX, 2);
+        lowestY = Math.Round(FormulaCalc(index, lowestX), 2);
 
         Program.ShowResultXY("The lowest X location was: ", lowestX, " With the value of: ", lowestY);
     }

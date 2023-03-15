@@ -10,7 +10,7 @@ Newest version has some different formulas you can render
 - sqrt(x)
 - x^2
 - sqrt(1 - (Abs(x) - 1)^2)
-- x^2 - 4
+- x^2 - 4 (-2 < x < 2)
 - 1/(1+e^-x) (Sigmoid)
 
 When the coordinate system appears, you will have the ability to interact with it
